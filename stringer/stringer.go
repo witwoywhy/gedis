@@ -17,6 +17,7 @@ type Stringer interface {
 	MGet([]string) []string
 
 	Append(string, string) int
+	StrLen(string) int
 
 	TTL(string) int
 	Exists(string) bool
@@ -53,4 +54,9 @@ func (s *String) Append(key, value string) int {
 	v += value
 	s.Set(key, v, 0)
 	return utf8.RuneCountInString(v)
+}
+
+func (s *String) StrLen(key string) int {
+	value := s.Get(key)
+	return utf8.RuneCountInString(value)
 }

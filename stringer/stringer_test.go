@@ -79,3 +79,18 @@ func TestAppend(t *testing.T) {
 	got := str.Get(test.key)
 	assert.Equal(t, test.want, got)
 }
+
+func TestStrLen(t *testing.T) {
+	type testCase struct {
+		key   string
+		value string
+		want  int
+	}
+	test := testCase{key: "mykey", value: "Hello World", want: 11}
+
+	var str Stringer = NewString()
+	str.Set(test.key, test.value, 0)
+
+	got := str.StrLen(test.key)
+	assert.Equal(t, test.want, got)
+}
