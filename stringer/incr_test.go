@@ -48,6 +48,15 @@ func TestIncr(t *testing.T) {
 		got2 := str.Get(test.key)
 		assert.Equal(t, test.wantStr, got2)
 	})
+
+	t.Run("key is not integer", func(t *testing.T) {
+		key := "string"
+
+		str.Set(key, "This is a string", 0)
+
+		_, err := str.Incr(key)
+		assert.NotNil(t, err)
+	})
 }
 
 func TestIncrBy(t *testing.T) {
