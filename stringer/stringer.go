@@ -3,6 +3,7 @@ package stringer
 import (
 	"context"
 	"time"
+	"unicode/utf8"
 )
 
 type Stringer interface {
@@ -12,6 +13,8 @@ type Stringer interface {
 
 	Get(string) string
 	MGet([]string) []string
+
+	Append(string, string) int
 
 	TTL(string) int
 	Exists(string) bool
@@ -41,4 +44,11 @@ func (s *String) Exists(key string) bool {
 	}
 
 	return false
+}
+
+func (s *String) Append(key, value string) int {
+	v := s.Get(key)
+	v += value
+	s.Set(key, v, 0)
+	return utf8.RuneCountInString(v)
 }

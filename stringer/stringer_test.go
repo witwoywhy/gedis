@@ -57,3 +57,25 @@ func TestExists(t *testing.T) {
 		assert.Equal(t, want, got)
 	})
 }
+
+func TestAppend(t *testing.T) {
+	type testCase struct {
+		key  string
+		want string
+	}
+	test := testCase{key: "mykey", want: "Hello World"}
+
+	var str Stringer = NewString()
+
+	exists := str.Exists(test.key)
+	assert.False(t, exists)
+
+	l := str.Append(test.key, "Hello")
+	assert.Equal(t, 5, l)
+
+	l = str.Append(test.key, " World")
+	assert.Equal(t, 11, l)
+
+	got := str.Get(test.key)
+	assert.Equal(t, test.want, got)
+}
