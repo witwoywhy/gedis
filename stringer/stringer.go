@@ -8,6 +8,7 @@ import (
 type Stringer interface {
 	Set(string, string, time.Duration)
 	SetEx(string, string, int)
+	MSet(map[string]string)
 
 	Get(string) string
 

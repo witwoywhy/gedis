@@ -21,3 +21,9 @@ func (s *String) SetEx(key, value string, ttl int) {
 	ttlDuration := time.Duration(ttl)
 	s.Set(key, value, ttlDuration)
 }
+
+func (s *String) MSet(values map[string]string) {
+	for k, v := range values {
+		s.Set(k, v, 0)
+	}
+}

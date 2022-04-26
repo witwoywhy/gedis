@@ -32,3 +32,35 @@ func TestSetEx(t *testing.T) {
 		assert.Equal(t, "", got)
 	})
 }
+
+func TestMSet(t *testing.T) {
+	type testCase struct {
+		key   string
+		value string
+	}
+	key1 := testCase{key: "key1", value: "Hello"}
+	key2 := testCase{key: "key2", value: "World"}
+	tests := []testCase{
+		key1,
+		key2,
+	}
+
+	var str Stringer = NewString()
+
+	t.Run("can mset", func(t *testing.T) {
+		m := make(map[string]string)
+		for _, test := range tests {
+			m[test.key] = test.value
+		}
+
+		str.MSet(m)
+	})
+
+	t.Run("can get", func(t *testing.T) {
+		got := str.Get(key1.key)
+		assert.Equal(t, key1.value, got)
+
+		got = str.Get(key2.key)
+		assert.Equal(t, key2.value, got)
+	})
+}
