@@ -32,3 +32,28 @@ func TestSetandGet(t *testing.T) {
 		assert.Equal(t, test.want, got)
 	})
 }
+
+func TestExists(t *testing.T) {
+	var str Stringer = NewString()
+
+	t.Run("exists key", func(t *testing.T) {
+		type testCase struct {
+			key   string
+			value string
+		}
+		test := testCase{key: "mykey", value: "Hello"}
+
+		str.Set(test.key, test.value, 0)
+
+		got := str.Exists(test.key)
+		assert.Equal(t, true, got)
+	})
+
+	t.Run("not exists key", func(t *testing.T) {
+		key := "anotherkey"
+		want := false
+
+		got := str.Exists(key)
+		assert.Equal(t, want, got)
+	})
+}

@@ -14,6 +14,7 @@ type Stringer interface {
 	MGet([]string) []string
 
 	TTL(string) int
+	Exists(string) bool
 }
 
 type repository struct {
@@ -32,4 +33,12 @@ func NewString() Stringer {
 		storage: make(map[string]repository),
 		ctx:     context.Background(),
 	}
+}
+
+func (s *String) Exists(key string) bool {
+	if _, ok := s.storage[key]; ok {
+		return true
+	}
+
+	return false
 }
