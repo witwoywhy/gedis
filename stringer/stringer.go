@@ -25,6 +25,7 @@ type Stringer interface {
 	IncrBy(string, int) (int, error)
 
 	Decr(string) (int, error)
+	DecrBy(string, int) (int, error)
 
 	TTL(string) int
 	Exists(string) bool
