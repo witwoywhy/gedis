@@ -45,3 +45,9 @@ func (s *String) GetRange(key string, start, end int) string {
 
 	return value[start:end]
 }
+
+func (s *String) GetSet(key string, value string) string {
+	v := s.Get(key)
+	s.Set(key, value, 0)
+	return v
+}

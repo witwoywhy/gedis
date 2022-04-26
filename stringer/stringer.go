@@ -14,6 +14,7 @@ type Stringer interface {
 	Get(string) string
 	GetDel(string) string
 	GetRange(string, int, int) string
+	GetSet(string, string) string
 	MGet([]string) []string
 
 	Append(string, string) int

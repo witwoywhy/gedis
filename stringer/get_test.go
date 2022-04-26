@@ -73,3 +73,21 @@ func TestGetRange(t *testing.T) {
 		assert.Zero(t, got)
 	})
 }
+
+func TestGetSet(t *testing.T) {
+	type testCase struct {
+		key   string
+		value string
+		want  string
+	}
+	test := testCase{key: "mykey", value: "Hello", want: "World"}
+
+	var str Stringer = NewString()
+	str.Set(test.key, test.value, 0)
+
+	got := str.GetSet(test.key, test.want)
+	assert.Equal(t, test.value, got)
+
+	got = str.Get(test.key)
+	assert.Equal(t, test.want, got)
+}
