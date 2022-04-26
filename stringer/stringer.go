@@ -11,6 +11,7 @@ type Stringer interface {
 	MSet(map[string]string)
 
 	Get(string) string
+	MGet([]string) []string
 
 	TTL(string) int
 }
@@ -39,4 +40,13 @@ func (s *String) Get(key string) string {
 
 func (s *String) get(key string) repository {
 	return s.storage[key]
+}
+
+func (s *String) MGet(keys []string) []string {
+	var values []string = make([]string, len(keys))
+	for i, key := range keys {
+		v := s.Get(key)
+		values[i] = v
+	}
+	return values
 }
