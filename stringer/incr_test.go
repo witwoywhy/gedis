@@ -104,4 +104,20 @@ func TestIncrBy(t *testing.T) {
 		got2 := str.Get(test.key)
 		assert.Equal(t, test.wantStr, got2)
 	})
+
+	t.Run("not exists key and incr by zero", func(t *testing.T) {
+		test := testCase{
+			key:     "byzero",
+			wantStr: "0",
+			wantInt: 0,
+			incr:    0,
+		}
+
+		got1, err := str.DecrBy(test.key, test.incr)
+		assert.Nil(t, err)
+		assert.Equal(t, test.wantInt, got1)
+
+		got2 := str.Get(test.key)
+		assert.Equal(t, test.wantStr, got2)
+	})
 }
