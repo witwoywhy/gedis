@@ -27,3 +27,17 @@ func TestMGet(t *testing.T) {
 		assert.Equal(t, want, got)
 	})
 }
+
+func TestGetDel(t *testing.T) {
+	key := "mykey"
+	hello := "Hello"
+
+	var str Stringer = NewString()
+	str.Set(key, hello, 0)
+
+	got := str.GetDel(key)
+	assert.Equal(t, hello, got)
+
+	got = str.Get(key)
+	assert.Zero(t, got)
+}

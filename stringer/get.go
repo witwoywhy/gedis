@@ -16,3 +16,9 @@ func (s *String) MGet(keys []string) []string {
 	}
 	return values
 }
+
+func (s *String) GetDel(key string) string {
+	value := s.Get(key)
+	delete(s.storage, key)
+	return value
+}

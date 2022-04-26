@@ -12,6 +12,7 @@ type Stringer interface {
 	MSet(map[string]string)
 
 	Get(string) string
+	GetDel(string) string
 	MGet([]string) []string
 
 	Append(string, string) int
