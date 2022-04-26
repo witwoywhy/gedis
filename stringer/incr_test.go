@@ -49,3 +49,50 @@ func TestIncr(t *testing.T) {
 		assert.Equal(t, test.wantStr, got2)
 	})
 }
+
+func TestIncrBy(t *testing.T) {
+	type testCase struct {
+		key     string
+		value   string
+		wantStr string
+		incr    int
+		wantInt int
+	}
+
+	var str Stringer = NewString()
+
+	t.Run("exists key", func(t *testing.T) {
+		test := testCase{
+			key:     "mykey",
+			value:   "10",
+			wantStr: "15",
+			wantInt: 15,
+			incr:    5,
+		}
+
+		str.Set(test.key, test.value, 0)
+
+		got1, err := str.IncrBy(test.key, test.incr)
+		assert.Nil(t, err)
+		assert.Equal(t, test.wantInt, got1)
+
+		got2 := str.Get(test.key)
+		assert.Equal(t, test.wantStr, got2)
+	})
+
+	t.Run("not exists key", func(t *testing.T) {
+		test := testCase{
+			key:     "anotherkey",
+			wantStr: "-5",
+			wantInt: -5,
+			incr:    -5,
+		}
+
+		got1, err := str.IncrBy(test.key, test.incr)
+		assert.Nil(t, err)
+		assert.Equal(t, test.wantInt, got1)
+
+		got2 := str.Get(test.key)
+		assert.Equal(t, test.wantStr, got2)
+	})
+}

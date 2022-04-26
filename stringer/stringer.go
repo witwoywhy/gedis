@@ -22,6 +22,7 @@ type Stringer interface {
 	StrLen(string) int
 
 	Incr(string) (int, error)
+	IncrBy(string, int) (int, error)
 
 	TTL(string) int
 	Exists(string) bool

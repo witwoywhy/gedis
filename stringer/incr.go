@@ -28,3 +28,7 @@ func (s *String) incrBy(key string, incr int) (int, error) {
 func (s *String) Incr(key string) (int, error) {
 	return s.incrBy(key, 1)
 }
+
+func (s *String) IncrBy(key string, incr int) (int, error) {
+	return s.incrBy(key, incr)
+}
