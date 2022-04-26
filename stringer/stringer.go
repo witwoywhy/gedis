@@ -21,6 +21,8 @@ type Stringer interface {
 	Append(string, string) int
 	StrLen(string) int
 
+	Incr(string) (int, error)
+
 	TTL(string) int
 	Exists(string) bool
 }
