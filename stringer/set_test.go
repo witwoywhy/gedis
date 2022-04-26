@@ -64,3 +64,35 @@ func TestMSet(t *testing.T) {
 		assert.Equal(t, key2.value, got)
 	})
 }
+
+func TestSetRange(t *testing.T) {
+	type testCase struct {
+		key   string
+		index int
+		want  int
+	}
+
+	var str Stringer = NewString()
+
+	t.Run("basic", func(t *testing.T) {
+		test := testCase{key: "key1", index: 6, want: 11}
+		str.Set(test.key, "Hello World", 0)
+
+		got := str.SetRange(test.key, "Redis", test.index)
+		assert.Equal(t, test.want, got)
+	})
+
+	t.Run("zero padding", func(t *testing.T) {
+		test := testCase{key: "key2", index: 6, want: 11}
+		got := str.SetRange(test.key, "Redis", test.index)
+		assert.Equal(t, test.want, got)
+	})
+
+	t.Run("index over exists", func(t *testing.T) {
+		test := testCase{key: "key1", index: 20, want: 25}
+		str.Set(test.key, "Hello World", 0)
+
+		got := str.SetRange(test.key, "Redis", test.index)
+		assert.Equal(t, test.want, got)
+	})
+}
