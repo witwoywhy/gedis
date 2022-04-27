@@ -72,3 +72,14 @@ func (s *String) SetNx(key string, value string) bool {
 	s.Set(key, value, 0)
 	return true
 }
+
+func (s *String) MSetNx(values map[string]string) bool {
+	for k := range values {
+		if s.Exists(k) {
+			return false
+		}
+	}
+
+	s.MSet(values)
+	return true
+}

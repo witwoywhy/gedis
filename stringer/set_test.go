@@ -160,3 +160,27 @@ func TestSetNX(t *testing.T) {
 	got2 := str.Get(test.key)
 	assert.Equal(t, test.want, got2)
 }
+
+func TestMSetNx(t *testing.T) {
+	test1 := map[string]string{
+		"key1": "Hello",
+		"key2": "there",
+	}
+	test2 := map[string]string{
+		"key2": "new",
+		"key3": "world",
+	}
+	key := []string{"key1", "key2", "key3"}
+	want := []string{"Hello", "there", ""}
+
+	var str Stringer = NewString()
+
+	got1 := str.MSetNx(test1)
+	assert.True(t, got1)
+
+	got1 = str.MSetNx(test2)
+	assert.False(t, got1)
+
+	got2 := str.MGet(key)
+	assert.Equal(t, want, got2)
+}

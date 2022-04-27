@@ -12,6 +12,7 @@ type Stringer interface {
 	SetEx(string, string, int)
 	SetNx(string, string) bool
 	MSet(map[string]string)
+	MSetNx(map[string]string) bool
 	PSetEx(string, string, int)
 
 	Get(string) string
