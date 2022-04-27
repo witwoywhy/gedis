@@ -36,7 +36,7 @@ func TestTTL(t *testing.T) {
 
 	t.Run("key not expired", func(t *testing.T) {
 		key := "anotherkey1"
-		want := -2
+		want := -1
 		str.Set(key, "", 0)
 
 		got := str.TTL(key)

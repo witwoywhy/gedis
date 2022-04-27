@@ -24,7 +24,7 @@ func (s *String) TTL(key string) int {
 	r, ok := s.get(key)
 	if ok {
 		if r.ttl.IsZero() {
-			return -2
+			return -1
 		}
 
 		t := time.Now()
