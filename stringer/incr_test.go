@@ -121,3 +121,26 @@ func TestIncrBy(t *testing.T) {
 		assert.Equal(t, test.wantStr, got2)
 	})
 }
+
+func TestIncrByFloat(t *testing.T) {
+	var str Stringer = NewString()
+
+	t.Run("exists key", func(t *testing.T) {
+		key := "key1"
+		str.Set(key, "10.50", 0)
+
+		got, err := str.IncrByFloat(key, 0.1)
+		assert.Nil(t, err)
+		assert.Equal(t, "10.6", got)
+
+		got, err = str.IncrByFloat(key, -5)
+		assert.Nil(t, err)
+		assert.Equal(t, "5.6", got)
+	})
+
+	t.Run("not exists key", func(t *testing.T) {
+		got, err := str.IncrByFloat("key2", -1)
+		assert.Nil(t, err)
+		assert.Equal(t, "-1", got)
+	})
+}

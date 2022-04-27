@@ -27,6 +27,7 @@ type Stringer interface {
 
 	Incr(string) (int, error)
 	IncrBy(string, int) (int, error)
+	IncrByFloat(string, float64) (string, error)
 
 	Decr(string) (int, error)
 	DecrBy(string, int) (int, error)
