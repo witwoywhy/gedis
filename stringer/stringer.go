@@ -16,6 +16,7 @@ type Stringer interface {
 	GetDel(string) string
 	GetRange(string, int, int) string
 	GetSet(string, string) string
+	GetEx(string, int) string
 	MGet([]string) []string
 
 	Append(string, string) int
@@ -33,7 +34,7 @@ type Stringer interface {
 
 type repository struct {
 	value string
-	
+
 	ttl   time.Time
 	ch    chan struct{}
 }

@@ -91,3 +91,31 @@ func TestGetSet(t *testing.T) {
 	got = str.Get(test.key)
 	assert.Equal(t, test.want, got)
 }
+
+func TestGetEx(t *testing.T) {
+	type testCase struct {
+		key   string
+		value string
+		ttl   int
+	}
+	test := testCase{key: "mykey", value: "Hello", ttl: 3}
+
+	var str Stringer = NewString()
+	str.Set(test.key, test.value, 0)
+
+	t.Run("without ttl", func(t *testing.T) {
+		got1 := str.GetEx(test.key, 0)
+		assert.Equal(t, test.value, got1)
+
+		got2 := str.TTL(test.key)
+		assert.Equal(t, -1, got2)
+	})
+
+	t.Run("with ttl", func(t *testing.T) {
+		got1 := str.GetEx(test.key, test.ttl)
+		assert.Equal(t, test.value, got1)
+
+		got2 := str.TTL(test.key)
+		assert.Equal(t, 2, got2)
+	})
+}
