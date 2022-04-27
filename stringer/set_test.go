@@ -47,6 +47,17 @@ func TestSetEx(t *testing.T) {
 		got = str.Get(test.key)
 		assert.Equal(t, "", got)
 	})
+
+	t.Run("can replace without ttl", func(t *testing.T) {
+		test := testCase{key: "replace", value: "Hello", ttl: 3, want: "Hello"}
+		str.SetEx(test.key, "", test.ttl)
+
+		str.Set(test.key, test.value, 0)
+
+		time.Sleep(5 * time.Second)
+		got := str.Get(test.key)
+		assert.Equal(t, test.want, got)
+	})
 }
 
 func TestMSet(t *testing.T) {
