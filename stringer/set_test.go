@@ -142,3 +142,21 @@ func TestPSetEx(t *testing.T) {
 	got := str.Get(test.key)
 	assert.Equal(t, test.want, got)
 }
+
+func TestSetNX(t *testing.T) {
+	type testCase struct {
+		key, value, want string
+	}
+	test := testCase{key: "mykey", value: "Hello", want: "Hello"}
+
+	var str Stringer = NewString()
+
+	got1 := str.SetNx(test.key, test.value)
+	assert.True(t, got1)
+
+	got1 = str.SetNx(test.key, "World")
+	assert.False(t, got1)
+
+	got2 := str.Get(test.key)
+	assert.Equal(t, test.want, got2)
+}

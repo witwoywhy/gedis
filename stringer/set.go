@@ -62,3 +62,13 @@ func (s *String) SetRange(key, value string, index int) int {
 func (s *String) PSetEx(key, value string, ttl int) {
 	s.Set(key, value, s.milliSecondDuration(ttl))
 }
+
+func (s *String) SetNx(key string, value string) bool {
+	_, ok := s.get(key)
+	if ok {
+		return false
+	}
+
+	s.Set(key, value, 0)
+	return true
+}
