@@ -2,27 +2,25 @@ package stringer
 
 import (
 	"strconv"
-	"unicode/utf8"
 )
 
 func (s *String) incrBy(key string, incr int) (int, error) {
-	value := s.Get(key)
-	if utf8.RuneCountInString(value) == 0 {
-		s.Set(key, strconv.Itoa(incr), 0)
-		return incr, nil
+	var num int
+	r, ok := s.get(key)
+	if ok {
+		n, err := strconv.Atoi(r.value)
+		if err != nil {
+			return 0, err
+		}
+		num = n
 	}
 
-	n, err := strconv.Atoi(value)
-	if err != nil {
-		return 0, err
-	}
+	num += incr
 
-	n += incr
-
-	str := strconv.Itoa(n)
+	str := strconv.Itoa(num)
 	s.Set(key, str, 0)
 
-	return n, nil
+	return num, nil
 }
 
 func (s *String) Incr(key string) (int, error) {
