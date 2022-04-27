@@ -6,7 +6,7 @@ import (
 	"unicode/utf8"
 )
 
-func (s *String) Set(key, value string, ttl time.Duration) {
+func (s *String) set(key, value string, ttl time.Duration) {
 	var r repository
 	if repo, ok := s.get(key); ok {
 		if !repo.ttl.IsZero() {
@@ -31,13 +31,17 @@ func (s *String) Set(key, value string, ttl time.Duration) {
 	s.storage[key] = r
 }
 
+func (s *String) Set(key, value string) {
+	s.set(key, value, 0)
+}
+
 func (s *String) SetEx(key, value string, ttl int) {
-	s.Set(key, value, s.secondDuration(ttl))
+	s.set(key, value, s.secondDuration(ttl))
 }
 
 func (s *String) MSet(values map[string]string) {
 	for k, v := range values {
-		s.Set(k, v, 0)
+		s.Set(k, v)
 	}
 }
 
@@ -55,12 +59,12 @@ func (s *String) SetRange(key, value string, index int) int {
 		v = v[:index] + value
 	}
 
-	s.Set(key, v, 0)
+	s.Set(key, v)
 	return utf8.RuneCountInString(v)
 }
 
 func (s *String) PSetEx(key, value string, ttl int) {
-	s.Set(key, value, s.milliSecondDuration(ttl))
+	s.set(key, value, s.milliSecondDuration(ttl))
 }
 
 func (s *String) SetNx(key string, value string) bool {
@@ -69,7 +73,7 @@ func (s *String) SetNx(key string, value string) bool {
 		return false
 	}
 
-	s.Set(key, value, 0)
+	s.Set(key, value)
 	return true
 }
 

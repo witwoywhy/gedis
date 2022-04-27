@@ -7,7 +7,7 @@ import (
 )
 
 type Stringer interface {
-	Set(string, string, time.Duration)
+	Set(string, string)
 	SetRange(string, string, int) int
 	SetEx(string, string, int)
 	SetNx(string, string) bool
@@ -64,7 +64,7 @@ func (s *String) Exists(key string) bool {
 func (s *String) Append(key, value string) int {
 	v := s.Get(key)
 	v += value
-	s.Set(key, v, 0)
+	s.Set(key, v)
 	return utf8.RuneCountInString(v)
 }
 

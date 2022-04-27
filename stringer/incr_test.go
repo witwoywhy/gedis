@@ -24,7 +24,7 @@ func TestIncr(t *testing.T) {
 			wantInt: 11,
 		}
 
-		str.Set(test.key, test.value, 0)
+		str.Set(test.key, test.value)
 
 		got1, err := str.Incr(test.key)
 		assert.Nil(t, err)
@@ -52,7 +52,7 @@ func TestIncr(t *testing.T) {
 	t.Run("key is not integer", func(t *testing.T) {
 		key := "string"
 
-		str.Set(key, "This is a string", 0)
+		str.Set(key, "This is a string")
 
 		_, err := str.Incr(key)
 		assert.NotNil(t, err)
@@ -79,7 +79,7 @@ func TestIncrBy(t *testing.T) {
 			incr:    5,
 		}
 
-		str.Set(test.key, test.value, 0)
+		str.Set(test.key, test.value)
 
 		got1, err := str.IncrBy(test.key, test.incr)
 		assert.Nil(t, err)
@@ -127,7 +127,7 @@ func TestIncrByFloat(t *testing.T) {
 
 	t.Run("exists key", func(t *testing.T) {
 		key := "key1"
-		str.Set(key, "10.50", 0)
+		str.Set(key, "10.50")
 
 		got, err := str.IncrByFloat(key, 0.1)
 		assert.Nil(t, err)
@@ -146,7 +146,7 @@ func TestIncrByFloat(t *testing.T) {
 
 	t.Run("value is string", func(t *testing.T) {
 		key := "string"
-		str.Set(key, "hello", 0)
+		str.Set(key, "hello")
 
 		_, err := str.IncrByFloat(key, 1.55)
 		assert.NotNil(t, err)

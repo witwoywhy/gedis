@@ -17,8 +17,8 @@ func TestMGet(t *testing.T) {
 
 	var str Stringer = NewString()
 
-	str.Set(key1.key, key1.value, 0)
-	str.Set(key2.key, key2.value, 0)
+	str.Set(key1.key, key1.value)
+	str.Set(key2.key, key2.value)
 
 	t.Run("can mget", func(t *testing.T) {
 		keys := []string{key1.key, "anotherkey", key2.key}
@@ -34,7 +34,7 @@ func TestGetDel(t *testing.T) {
 	hello := "Hello"
 
 	var str Stringer = NewString()
-	str.Set(key, hello, 0)
+	str.Set(key, hello)
 
 	got := str.GetDel(key)
 	assert.Equal(t, hello, got)
@@ -59,7 +59,7 @@ func TestGetRange(t *testing.T) {
 	value := "This is a string"
 
 	var str Stringer = NewString()
-	str.Set(key, value, 0)
+	str.Set(key, value)
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("%d:%d", test.start, test.end), func(t *testing.T) {
@@ -83,7 +83,7 @@ func TestGetSet(t *testing.T) {
 	test := testCase{key: "mykey", value: "Hello", want: "World"}
 
 	var str Stringer = NewString()
-	str.Set(test.key, test.value, 0)
+	str.Set(test.key, test.value)
 
 	got := str.GetSet(test.key, test.want)
 	assert.Equal(t, test.value, got)
@@ -101,7 +101,7 @@ func TestGetEx(t *testing.T) {
 	test := testCase{key: "mykey", value: "Hello", ttl: 3}
 
 	var str Stringer = NewString()
-	str.Set(test.key, test.value, 0)
+	str.Set(test.key, test.value)
 
 	t.Run("without ttl", func(t *testing.T) {
 		got1 := str.GetEx(test.key, 0)

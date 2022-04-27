@@ -24,7 +24,7 @@ func TestDecr(t *testing.T) {
 			wantInt: 9,
 		}
 
-		str.Set(test.key, test.value, 0)
+		str.Set(test.key, test.value)
 
 		got1, err := str.Decr(test.key)
 		assert.Nil(t, err)
@@ -52,7 +52,7 @@ func TestDecr(t *testing.T) {
 	t.Run("key is not integer", func(t *testing.T) {
 		key := "string"
 
-		str.Set(key, "This is a string", 0)
+		str.Set(key, "This is a string")
 
 		_, err := str.Decr(key)
 		assert.NotNil(t, err)
@@ -79,7 +79,7 @@ func TestDecrBy(t *testing.T) {
 			decr:    5,
 		}
 
-		str.Set(test.key, test.value, 0)
+		str.Set(test.key, test.value)
 
 		got1, err := str.DecrBy(test.key, test.decr)
 		assert.Nil(t, err)

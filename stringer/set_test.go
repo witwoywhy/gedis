@@ -52,7 +52,7 @@ func TestSetEx(t *testing.T) {
 		test := testCase{key: "replace", value: "Hello", ttl: 3, want: "Hello"}
 		str.SetEx(test.key, "", test.ttl)
 
-		str.Set(test.key, test.value, 0)
+		str.Set(test.key, test.value)
 
 		time.Sleep(5 * time.Second)
 		got := str.Get(test.key)
@@ -103,7 +103,7 @@ func TestSetRange(t *testing.T) {
 
 	t.Run("basic", func(t *testing.T) {
 		test := testCase{key: "key1", index: 6, want: 11}
-		str.Set(test.key, "Hello World", 0)
+		str.Set(test.key, "Hello World")
 
 		got := str.SetRange(test.key, "Redis", test.index)
 		assert.Equal(t, test.want, got)
@@ -117,7 +117,7 @@ func TestSetRange(t *testing.T) {
 
 	t.Run("index over exists", func(t *testing.T) {
 		test := testCase{key: "key1", index: 20, want: 25}
-		str.Set(test.key, "Hello World", 0)
+		str.Set(test.key, "Hello World")
 
 		got := str.SetRange(test.key, "Redis", test.index)
 		assert.Equal(t, test.want, got)

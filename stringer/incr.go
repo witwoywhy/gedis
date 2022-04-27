@@ -18,7 +18,7 @@ func (s *String) incrBy(key string, incr int) (int, error) {
 	num += incr
 
 	str := strconv.Itoa(num)
-	s.Set(key, str, 0)
+	s.Set(key, str)
 
 	return num, nil
 }
@@ -48,6 +48,6 @@ func (s *String) IncrByFloat(key string, incr float64) (string, error) {
 	num += incr
 
 	str := strconv.FormatFloat(num, 'f', -1, 64)
-	s.Set(key, str, 0)
+	s.Set(key, str)
 	return str, nil
 }

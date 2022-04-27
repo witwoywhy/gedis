@@ -51,12 +51,12 @@ func (s *String) GetRange(key string, start, end int) string {
 
 func (s *String) GetSet(key string, value string) string {
 	v := s.Get(key)
-	s.Set(key, value, 0)
+	s.Set(key, value)
 	return v
 }
 
 func (s *String) GetEx(key string, ttl int) string {
 	v := s.Get(key)
-	s.Set(key, v, s.secondDuration(ttl))
+	s.set(key, v, s.secondDuration(ttl))
 	return v
 }

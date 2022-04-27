@@ -17,7 +17,7 @@ func TestSetandGet(t *testing.T) {
 	var str Stringer = NewString()
 
 	t.Run("can set", func(t *testing.T) {
-		str.Set(test.key, test.value, 0)
+		str.Set(test.key, test.value)
 	})
 
 	t.Run("can get", func(t *testing.T) {
@@ -43,7 +43,7 @@ func TestExists(t *testing.T) {
 		}
 		test := testCase{key: "mykey", value: "Hello"}
 
-		str.Set(test.key, test.value, 0)
+		str.Set(test.key, test.value)
 
 		got := str.Exists(test.key)
 		assert.Equal(t, true, got)
@@ -89,7 +89,7 @@ func TestStrLen(t *testing.T) {
 	test := testCase{key: "mykey", value: "Hello World", want: 11}
 
 	var str Stringer = NewString()
-	str.Set(test.key, test.value, 0)
+	str.Set(test.key, test.value)
 
 	got := str.StrLen(test.key)
 	assert.Equal(t, test.want, got)

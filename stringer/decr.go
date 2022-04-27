@@ -18,7 +18,7 @@ func (s *String) decrBy(key string, decr int) (int, error) {
 	num -= decr
 	
 	str := strconv.Itoa(num)
-	s.Set(key, str, 0)
+	s.Set(key, str)
 	return num, nil
 }
 
