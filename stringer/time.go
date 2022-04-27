@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func (s *String) expired(key string, r *repository) {
+func (s *String) expire(key string, r *repository) {
 	ctx, cancel := context.WithDeadline(s.ctx, r.ttl)
 	defer cancel()
 

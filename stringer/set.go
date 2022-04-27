@@ -25,7 +25,7 @@ func (s *String) Set(key, value string, ttl time.Duration) {
 		r.ttl = expired
 		r.ch = make(chan struct{})
 
-		go s.expired(key, &r)
+		go s.expire(key, &r)
 	}
 
 	s.storage[key] = r
