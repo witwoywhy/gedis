@@ -33,4 +33,21 @@ func TestTTL(t *testing.T) {
 		got := str.TTL(test.key)
 		assert.Equal(t, test.want, got)
 	})
+
+	t.Run("key not expired", func(t *testing.T) {
+		key := "anotherkey1"
+		want := -2
+		str.Set(key, "", 0)
+
+		got := str.TTL(key)
+		assert.Equal(t, want, got)
+	})
+
+	t.Run("not exists key", func(t *testing.T) {
+		key := "anotherkey2"
+		want := -2
+
+		got := str.TTL(key)
+		assert.Equal(t, want, got)
+	})
 }

@@ -17,7 +17,14 @@ func (s *String) expired(key string, expired time.Time) {
 }
 
 func (s *String) TTL(key string) int {
-	r := s.get(key)
-	t := time.Now()
-	return int(r.ttl.Sub(t).Seconds())
+	r, ok := s.get(key)
+	if ok {
+		if r.ttl.IsZero() {
+			return -2
+		}
+		
+		t := time.Now()
+		return int(r.ttl.Sub(t).Seconds())
+	}
+	return -2
 }
