@@ -143,4 +143,12 @@ func TestIncrByFloat(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, "-1", got)
 	})
+
+	t.Run("value is string", func(t *testing.T) {
+		key := "string"
+		str.Set(key, "hello", 0)
+
+		_, err := str.IncrByFloat(key, 1.55)
+		assert.NotNil(t, err)
+	})
 }
