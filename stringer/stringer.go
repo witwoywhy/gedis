@@ -50,11 +50,8 @@ func NewString() Stringer {
 }
 
 func (s *String) Exists(key string) bool {
-	if _, ok := s.storage[key]; ok {
-		return true
-	}
-
-	return false
+	_, ok := s.storage[key]
+	return ok
 }
 
 func (s *String) Append(key, value string) int {
