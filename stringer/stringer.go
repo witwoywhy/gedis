@@ -11,6 +11,7 @@ type Stringer interface {
 	SetRange(string, string, int) int
 	SetEx(string, string, int)
 	MSet(map[string]string)
+	PSetEx(string, string, int)
 
 	Get(string) string
 	GetDel(string) string
@@ -35,8 +36,8 @@ type Stringer interface {
 type repository struct {
 	value string
 
-	ttl   time.Time
-	ch    chan struct{}
+	ttl time.Time
+	ch  chan struct{}
 }
 
 type String struct {

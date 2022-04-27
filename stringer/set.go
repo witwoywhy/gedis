@@ -59,3 +59,8 @@ func (s *String) SetRange(key, value string, index int) int {
 	s.Set(key, v, 0)
 	return utf8.RuneCountInString(v)
 }
+
+func (s *String) PSetEx(key, value string, ttl int) {
+	ttlDuration := time.Duration(ttl) * time.Millisecond
+	s.Set(key, value, ttlDuration)
+}

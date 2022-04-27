@@ -123,3 +123,22 @@ func TestSetRange(t *testing.T) {
 		assert.Equal(t, test.want, got)
 	})
 }
+
+func TestPSetEx(t *testing.T) {
+	type testCase struct {
+		key   string
+		value string
+		want  string
+		ttl   int
+	}
+	test := testCase{key: "mykey", value: "Hello", ttl: 3000, want: ""}
+
+	var str Stringer = NewString()
+
+	str.PSetEx(test.key, test.value, test.ttl)
+
+	time.Sleep(4 * time.Second)
+
+	got := str.Get(test.key)
+	assert.Equal(t, test.want, got)
+}
