@@ -20,7 +20,7 @@ func (s *String) Set(key, value string, ttl time.Duration) {
 
 	if ttl != 0 {
 		expired := time.Now()
-		expired = expired.Add(time.Second * ttl)
+		expired = expired.Add(ttl)
 
 		r.ttl = expired
 		r.ch = make(chan struct{})
@@ -32,7 +32,7 @@ func (s *String) Set(key, value string, ttl time.Duration) {
 }
 
 func (s *String) SetEx(key, value string, ttl int) {
-	ttlDuration := time.Duration(ttl)
+	ttlDuration := time.Duration(ttl) * time.Second
 	s.Set(key, value, ttlDuration)
 }
 
