@@ -32,8 +32,7 @@ func (s *String) Set(key, value string, ttl time.Duration) {
 }
 
 func (s *String) SetEx(key, value string, ttl int) {
-	ttlDuration := time.Duration(ttl) * time.Second
-	s.Set(key, value, ttlDuration)
+	s.Set(key, value, s.secondDuration(ttl))
 }
 
 func (s *String) MSet(values map[string]string) {
@@ -61,6 +60,5 @@ func (s *String) SetRange(key, value string, index int) int {
 }
 
 func (s *String) PSetEx(key, value string, ttl int) {
-	ttlDuration := time.Duration(ttl) * time.Millisecond
-	s.Set(key, value, ttlDuration)
+	s.Set(key, value, s.milliSecondDuration(ttl))
 }

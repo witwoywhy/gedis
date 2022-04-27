@@ -69,3 +69,10 @@ func (s *String) StrLen(key string) int {
 	value := s.Get(key)
 	return utf8.RuneCountInString(value)
 }
+
+func (s *String) secondDuration(second int) time.Duration {
+	return time.Duration(second) * time.Second
+}
+func (s *String) milliSecondDuration(milliSecond int) time.Duration {
+	return time.Duration(milliSecond) * time.Millisecond
+}

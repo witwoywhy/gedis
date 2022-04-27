@@ -1,7 +1,6 @@
 package stringer
 
 import (
-	"time"
 	"unicode/utf8"
 )
 
@@ -58,7 +57,6 @@ func (s *String) GetSet(key string, value string) string {
 
 func (s *String) GetEx(key string, ttl int) string {
 	v := s.Get(key)
-	ttlDuration := time.Duration(ttl) * time.Second
-	s.Set(key, v, ttlDuration)
+	s.Set(key, v, s.secondDuration(ttl))
 	return v
 }
