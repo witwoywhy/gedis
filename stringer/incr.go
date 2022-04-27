@@ -33,7 +33,7 @@ func (s *String) IncrBy(key string, incr int) (int, error) {
 
 func (s *String) IncrByFloat(key string, incr float64) (string, error) {
 	var value string
-	var float float64
+	var num float64
 
 	r, ok := s.get(key)
 	if ok {
@@ -42,12 +42,12 @@ func (s *String) IncrByFloat(key string, incr float64) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		float = n
+		num = n
 	}
 
-	float += incr
+	num += incr
 
-	str := strconv.FormatFloat(float, 'f', -1, 64)
+	str := strconv.FormatFloat(num, 'f', -1, 64)
 	s.Set(key, str, 0)
 	return str, nil
 }
