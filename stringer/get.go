@@ -6,8 +6,9 @@ func (s *String) Get(key string) string {
 	return s.storage[key].value
 }
 
-func (s *String) get(key string) repository {
-	return s.storage[key]
+func (s *String) get(key string) (repository, bool) {
+	v, ok := s.storage[key]
+	return v, ok
 }
 
 func (s *String) MGet(keys []string) []string {
