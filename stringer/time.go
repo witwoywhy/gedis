@@ -12,6 +12,7 @@ func (s *String) expire(key string, r *repository) {
 	for {
 		select {
 		case <-r.ch:
+			r.ttl = time.Time{}
 			return
 		case <-ctx.Done():
 			delete(s.storage, key)
