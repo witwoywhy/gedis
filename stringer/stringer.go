@@ -7,33 +7,33 @@ import (
 )
 
 type Stringer interface {
-	Set(string, string)
-	SetRange(string, string, int) int
-	SetEx(string, string, int)
-	SetNx(string, string) bool
-	MSet(map[string]string)
-	MSetNx(map[string]string) bool
-	PSetEx(string, string, int)
+	Set(key string, value string)
+	SetRange(key string, value string, index int) int
+	SetEx(key string, value string, ttl int)
+	SetNx(key string, value string) bool
+	MSet(values map[string]string)
+	MSetNx(values map[string]string) bool
+	PSetEx(key string, value string, ttl int)
 
-	Get(string) string
-	GetDel(string) string
-	GetRange(string, int, int) string
-	GetSet(string, string) string
-	GetEx(string, int) string
-	MGet([]string) []string
+	Get(key string) string
+	GetDel(key string) string
+	GetRange(key string, start int, end int) string
+	GetSet(key string, value string) string
+	GetEx(key string, ttl int) string
+	MGet(key []string) []string
 
-	Append(string, string) int
-	StrLen(string) int
+	Append(key string, value string) int
+	StrLen(key string) int
 
-	Incr(string) (int, error)
-	IncrBy(string, int) (int, error)
-	IncrByFloat(string, float64) (string, error)
+	Incr(key string) (int, error)
+	IncrBy(key string, incr int) (int, error)
+	IncrByFloat(key string, incr float64) (string, error)
 
-	Decr(string) (int, error)
-	DecrBy(string, int) (int, error)
+	Decr(key string) (int, error)
+	DecrBy(key string, decr int) (int, error)
 
-	TTL(string) int
-	Exists(string) bool
+	TTL(key string) int
+	Exists(key string) bool
 }
 
 type repository struct {
