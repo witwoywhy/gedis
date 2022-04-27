@@ -5,14 +5,18 @@ import (
 	"time"
 )
 
-func (s *String) expired(key string, expired time.Time) {
-	ctx, cancel := context.WithDeadline(s.ctx, expired)
+func (s *String) expired(key string, r *repository) {
+	ctx, cancel := context.WithDeadline(s.ctx, r.ttl)
 	defer cancel()
 
 	for {
-		<-ctx.Done()
-		delete(s.storage, key)
-		return
+		select {
+		case <-r.ch:
+			return
+		case <-ctx.Done():
+			delete(s.storage, key)
+			return
+		}
 	}
 }
 
@@ -22,7 +26,7 @@ func (s *String) TTL(key string) int {
 		if r.ttl.IsZero() {
 			return -2
 		}
-		
+
 		t := time.Now()
 		return int(r.ttl.Sub(t).Seconds())
 	}

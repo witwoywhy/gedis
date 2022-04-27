@@ -33,7 +33,9 @@ type Stringer interface {
 
 type repository struct {
 	value string
+	
 	ttl   time.Time
+	ch    chan struct{}
 }
 
 type String struct {

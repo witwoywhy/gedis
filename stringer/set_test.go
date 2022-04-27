@@ -31,6 +31,22 @@ func TestSetEx(t *testing.T) {
 		got := str.Get(test.key)
 		assert.Equal(t, "", got)
 	})
+
+	t.Run("can change ttl", func(t *testing.T) {
+		test := testCase{key: "change", value: "Hello", ttl: 3, want: "Hello"}
+		str.SetEx(test.key, "", test.ttl)
+
+		test.ttl = 10
+		str.SetEx(test.key, test.value, test.ttl)
+
+		time.Sleep(3 * time.Second)
+		got := str.Get(test.key)
+		assert.Equal(t, test.want, got)
+
+		time.Sleep(8 * time.Second)
+		got = str.Get(test.key)
+		assert.Equal(t, "", got)
+	})
 }
 
 func TestMSet(t *testing.T) {

@@ -8,14 +8,24 @@ import (
 
 func (s *String) Set(key, value string, ttl time.Duration) {
 	var r repository
+	if repo, ok := s.get(key); ok {
+		if !repo.ttl.IsZero() {
+			repo.ch <- struct{}{}
+		}
+
+		r = repo
+	}
+
 	r.value = value
 
 	if ttl != 0 {
 		expired := time.Now()
 		expired = expired.Add(time.Second * ttl)
-		r.ttl = expired
 
-		go s.expired(key, expired)
+		r.ttl = expired
+		r.ch = make(chan struct{})
+
+		go s.expired(key, &r)
 	}
 
 	s.storage[key] = r
