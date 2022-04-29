@@ -1,5 +1,6 @@
 # Gedis
-Gedis is like Redis but made from Golang.  
+Gedis have function like Redis but made from Golang.
+Gedis is a base function.
 
 ## Reference
 https://redis.io/commands/
